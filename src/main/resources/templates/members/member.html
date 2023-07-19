@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원 상세 조회</title>
+</head>
+<body>
+<h1>회원 상세 조회</h1>
+
+<table th:border="1">
+    <tbody>
+    <tr>
+        <td><label>ID</label></td>
+        <td th:text="${member.getId()}"></td>
+    </tr>
+
+    <tr>
+        <td><label>이름</label></td>
+        <td th:text="${member.getName()}"></td>
+    </tr>
+
+    <tr>
+        <td><label>성별</label></td>
+        <td th:text="${member.getGender()}"></td>
+    </tr>
+
+    <tr>
+        <td><label>분야</label></td>
+        <td th:text="${member.getField()}"></td>
+    </tr>
+
+    <tr>
+        <td><label>나이</label></td>
+        <td th:text="${member.getAge()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{|/members/${member.getId()}/edit|}">수정하기</a>
+
+
+<form th:action="@{|/members/${member.getId()}}" th:method="delete">
+
+    <input type="hidden" name="id" th:value="${member.getId()}">
+    <input type="submit" value="삭제하기">
+</form>
+
+<a href="/members">목록으로</a>
+</body>
+</html>
