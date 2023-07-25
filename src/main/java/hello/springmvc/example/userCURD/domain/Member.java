@@ -1,4 +1,4 @@
-package hello.springmvc.example.v1.domain;
+package hello.springmvc.example.userCURD.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,7 +1,7 @@
-package hello.springmvc.example.v1.service;
+package hello.springmvc.example.userCURD.service;
 
-import hello.springmvc.example.v1.domain.Member;
-import hello.springmvc.example.v1.repository.MemberRepository;
+import hello.springmvc.example.userCURD.domain.Member;
+import hello.springmvc.example.userCURD.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

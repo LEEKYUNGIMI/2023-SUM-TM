@@ -1,8 +1,8 @@
-package hello.springmvc.example.v1.controller;
+package hello.springmvc.example.userCURD.controller;
 
 
-import hello.springmvc.example.v1.domain.Member;
-import hello.springmvc.example.v1.service.MemberService;
+import hello.springmvc.example.userCURD.domain.Member;
+import hello.springmvc.example.userCURD.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

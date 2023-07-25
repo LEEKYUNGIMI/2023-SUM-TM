@@ -1,4 +1,4 @@
-package hello.springmvc.example.v1.controller;
+package hello.springmvc.example.userCURD.controller;
 
 
 import lombok.Getter;

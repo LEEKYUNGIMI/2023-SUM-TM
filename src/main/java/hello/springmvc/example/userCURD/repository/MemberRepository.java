@@ -1,6 +1,6 @@
-package hello.springmvc.example.v1.repository;
+package hello.springmvc.example.userCURD.repository;
 
-import hello.springmvc.example.v1.domain.Member;
+import hello.springmvc.example.userCURD.domain.Member;
 
 import java.util.List;
 import java.util.Optional;
