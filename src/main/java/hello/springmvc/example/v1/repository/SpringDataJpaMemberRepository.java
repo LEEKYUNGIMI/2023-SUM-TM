@@ -1,5 +1,5 @@
-package hello.springmvc.example.userCURD.repository;
-import hello.springmvc.example.userCURD.domain.Member;
+package hello.springmvc.example.v1.repository;
+import hello.springmvc.example.v1.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

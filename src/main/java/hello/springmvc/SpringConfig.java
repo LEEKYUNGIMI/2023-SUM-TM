@@ -1,32 +1,21 @@
 package hello.springmvc;
 
-import hello.springmvc.example.userCURD.repository.*;
-import hello.springmvc.example.userCURD.service.MemberService;
+import hello.springmvc.example.v1.repository.*;
+import hello.springmvc.example.v1.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringConfig {
 
-    private final MemberRepository memberRepository;
-
-    public SpringConfig(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    @Bean
+    public MemberService memberService() { //memberService 빈 등록
+        return new MemberService(memberRepository());
     }
 
     @Bean
-    public MemberService memberService() {
-        return new MemberService(memberRepository);
+    public MemberRepository memberRepository() { //memberRepository 빈 등록
+
+        return new MemoryMemberRepository();
     }
-
-
-
-    // @Bean
-    // public MemberRepository memberRepository() {
-
-        //return new MemoryMemberRepository();
-        //return new JdbcMemberRepository(dataSource);
-        //return new JdbcTemplateMemberRepository(dataSource);
-       //return new JpaMemberRepository(em);
-    // }
 }

@@ -1,37 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>회원가입</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEAMPLE 모여</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script
+            src="https://kit.fontawesome.com/c9b17dc88f.js"
+            crossorigin="anonymous"
+    ></script>
 </head>
 <body>
-<h1>회원가입</h1>
 
-    <form action="/members" method="post">
-        <input type="text" name="name" placeholder="이름"><br>
+<header class="header">
+    <div class="header__inner">
 
-        성별
-        <select name="gender">
-            <option>남자</option>
-            <option>여자</option>
-        </select>
-        <br>
-        분야
-        <select name="field">
-            <option>코딩</option>
-            <option>취미</option>
-        </select>
+        <div class="logo">
+            <a href="/"><img src="/images/logo.svg" alt="로고"></a>
+        </div>
 
-        <br>
+        <nav class="navbar">
+            <ul class="navbar__menu">
+                <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-info"></i> About</a></div>
+                <div class="navbar__menu-item"><a href="#"><i class="fa-regular fa-rectangle-list"></i> 게시판</a></div>
+                <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-headset"></i> 프로젝트</a></div>
+            </ul>
+        </nav>
 
-        <input type="number" name="age" placeholder="나이"><br>
+        <ul class="certification-btns">
+            <li><a href="/members/signup" class="certification-btns__sign-up-btn">회원가입</a></li>
+            <span>|</span>
+            <li><a href="/login" class="certification-btns__sign-in-btn">로그인</a></li>
+        </ul>
 
-        <input type="submit" value="가입">
-        <a href="/members">목록으로</a>
+        <input type="checkbox" name="" id="hamburger-menu" class="hamburger-menu-btn">
+
+        <label for="hamburger-menu" class="hamburger-lines">
+            <span class="hamburger-lines__line hamburger-lines__line-1"></span>
+            <span class="hamburger-lines__line hamburger-lines__line-2"></span>
+            <span class="hamburger-lines__line hamburger-lines__line-3"></span>
+        </label>
+
+
+    </div>
+</header>
+
+
+<div class="signup-area">
+    <h1 class="signup-area__title">TEAMPLE 모여 회원가입</h1>
+    <form action="/members" class="signup-form" method="post">
+        <div class="signup-area__wrap">
+
+            <div class="signup-area__column">
+                <img src="/images/default-profile.png" alt="프로필 이미지">
+            </div>
+            <div class="signup-area__column">
+
+                <div class="signup-form__input-box"><i class="fa-solid fa-user"></i><input name="name" class="signup-form__input" type="text" placeholder="이름"></div>
+
+                <div class="signup-form__input-box"><i class="fa-regular fa-id-card"></i><input name="loginId" class="signup-form__input" type="text" placeholder="아이디"></div>
+
+                <div class="signup-form__input-box"><i class="fa-solid fa-key"></i><input name="password" class="signup-form__input" type="password" placeholder="비밀번호"></div>
+
+                <div class="signup-form__input-box"><i class="fa-solid fa-envelope"></i><input name="email" class="signup-form__input" type="email" placeholder="이메일"></div>
+            </div>
+        </div>
+
+        <div class="signup-form__form-check">
+            <div class="signup-form__form-check-title">성별</div>
+            <input type="radio" name="gender" value="Man">남자
+            <input type="radio" name="gender" value="Woman">여자
+        </div>
+
+        <div class="signup-form__form-check">
+            <div class="signup-form__form-check-title">관심분야</div>
+
+            <input type="checkbox" id="field1" name="fields" value="CODING" class="form-check-input">
+            <label for="field1" class="form-check-label">코딩</label>
+
+            <input type="checkbox" id="field2" name="fields" value="WEB" class="form-check-input">
+            <label for="field2" class="form-check-label">웹</label>
+
+            <input type="checkbox" id="field3" name="fields"value="COOKING" class="form-check-input">
+            <label for="field3" class="form-check-label">요리</label>
+
+            <input type="checkbox" id="field4" name="fields" value="PPT" class="form-check-input">
+            <label for="field4" class="form-check-label">PPT</label>
+        </div>
+
+        <input type="submit" value="회원가입" class="signup-btn">
     </form>
+</div>
 
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__copyright">
+            Copyright © 2023 Hsac-ProjectB
+        </div>
+    </div>
+</footer>
 </body>
 </html>
