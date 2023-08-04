@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @Controller
 @RequestMapping("/members")
@@ -25,25 +28,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    //회원 목록 조회
-    @GetMapping
-    public String members(Model model) {
-        List<Member> members = memberService.findMembers();
-        model.addAttribute("members", members);
-        return "members/memberList";
-    }
-
-
-    //회원 상세 조회
-    @GetMapping("/{memberId}")
-
-    public String member(@PathVariable long memberId, Model model) {
-        Member member = memberService.findOne(memberId);
-        model.addAttribute("member", member);
-        return "members/member";
-    }
-
-
     //회원 가입 폼
     @GetMapping("/signup")
     public String createForm() {
@@ -54,64 +38,22 @@ public class MemberController {
     @PostMapping
     public String create(MemberForm memberForm){
 
-
         Member member = new Member();
 
+        log.info("memberForm = {}", memberForm.toString());
+
         member.setName(memberForm.getName());
+        member.setLoginId(memberForm.getLoginId());
+        member.setPassword(memberForm.getPassword());
+        member.setEmail(memberForm.getEmail());
         member.setGender(memberForm.getGender());
-        member.setField(memberForm.getField());
-        member.setAge(memberForm.getAge());
+        member.setFields(memberForm.getFields());
+
+        log.info("member = {}", member.toString());
 
         memberService.join(member);
 
-        return "redirect:/members";
-    }
-
-
-
-    //회원 수정 폼
-    @GetMapping("/{memberId}/edit")
-    public String updateFrom(@PathVariable long memberId, Model model) {
-        Member member = memberService.findOne(memberId);
-        model.addAttribute("member", member);
-        return "members/updateMemberForm";
-    }
-
-
-    //회원 수정
-    @PutMapping("/{memberId}")
-    public String update(@PathVariable long memberId, MemberForm memberForm, RedirectAttributes redirectAttributes) {
-
-        Member member = memberService.findOne(memberId);
-
-        member.setName(memberForm.getName());
-        member.setGender(memberForm.getGender());
-        member.setField(memberForm.getField());
-        member.setAge(memberForm.getAge());
-
-        memberService.modify(member);
-
-        redirectAttributes.addAttribute("memberId", memberId);
-        return "redirect:/members/{memberId}";
-    }
-
-
-
-    //회원 삭제
-    @DeleteMapping("{memberId}")
-    public String delete(@PathVariable long memberId) {
-
-        Member member = memberService.findOne(memberId);
-
-        memberService.withdraw(member);
-
-        return "redirect:/members";
-    }
-
-    @GetMapping("/test")
-    @ResponseBody
-    public String test() {
-        return "test";
+        return "redirect:/";
     }
 
 }

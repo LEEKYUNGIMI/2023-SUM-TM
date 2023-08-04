@@ -1,17 +1,79 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEAMPLE 모여</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script
+          src="https://kit.fontawesome.com/c9b17dc88f.js"
+          crossorigin="anonymous"
+  ></script>
 </head>
 <body>
-    <h1>홈페이지입니다.</h1>
-    <ul>
-        <li><a href="/members">멤버 관리</a></li>
+<header class="header">
+  <div class="header__inner">
+
+    <div class="logo">
+      <a href="/"><img src="images/logo.svg" alt="로고"></a>
+    </div>
+
+    <nav class="navbar">
+      <ul class="navbar__menu">
+        <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-info"></i> About</a></div>
+        <div class="navbar__menu-item"><a href="#"><i class="fa-regular fa-rectangle-list"></i> 게시판</a></div>
+        <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-headset"></i> 프로젝트</a></div>
+      </ul>
+    </nav>
+
+    <ul class="certification-btns" th:unless="${loginMember}">
+      <li><a href="/members/signup" class="certification-btns__sign-up-btn">회원가입</a></li>
+      <span>|</span>
+      <li><a href="/login" class="certification-btns__sign-in-btn">로그인</a></li>
     </ul>
 
+    <div class="dropdown" th:if="${loginMember}">
+      <button class="dropdown-toggle-btn"><i class="fa-solid fa-user"></i></button>
+      <ul class="dropdown-menu">
+          <li><a href="#"><i class="fa-regular fa-user"></i>나의 프로필</a></li>
+          <li>
+            <form th:action="@{/logout}" method="post">
+              <button type="submit">
+                <i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a></li>
+              </button>
+            </form>
+      </ul>
+    </div>
+
+    <input type="checkbox" name="" id="hamburger-menu" class="hamburger-menu-btn">
+
+    <label for="hamburger-menu" class="hamburger-lines">
+      <span class="hamburger-lines__line hamburger-lines__line-1"></span>
+      <span class="hamburger-lines__line hamburger-lines__line-2"></span>
+      <span class="hamburger-lines__line hamburger-lines__line-3"></span>
+    </label>
+
+
+  </div>
+</header>
+
+
+<div class="welcome-header" th:if="${loginMember}">
+  <h1 class="welcome-header__title">환영합니다</h1>
+  <p class="welcome-header__text" th:text="|TEAMPLE 모여 사이트에  환영합니다. ${loginMember.name}님|">
+   TEAMPLE 모여 사이트에  환영합니다. 사용자님
+  </p>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__copyright">
+      Copyright © 2023 Hsac-ProjectB
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
 </body>
 </html>
