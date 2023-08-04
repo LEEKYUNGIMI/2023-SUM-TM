@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>임시 마이페이지</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+<div class="container" id="app" v-cloak>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>내가 참여중인 채팅방 리스트</h3>
+        </div>
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.roomId" v-on:click="enterRoom(item)">
+            {{item.roomName}}
+        </li>
+    </ul>
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            chatrooms: [],
+            userId: '1',     // 임시 사용자 id
+        },
+        created() {
+            this.findByUserId();
+        },
+        methods: {
+            findByUserId: function() {
+                axios.get(`/chat/rooms/` + this.userId).then(response => {  // 임시 id정보로 참여중인 채팅방 조회해서 가져온다.
+                    this.chatrooms = response.data;
+                });
+            },
+            enterRoom: function(item) {
+                let sender = "김철수"  // 추후 접속자이름으로 변경 필요함.
+                if(sender !== "") {
+                    localStorage.setItem('wschat.sender', sender);
+                    localStorage.setItem('wschat.roomId', item.roomId);
+                    location.href="/chat/room/enter/" + item.roomId;
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
