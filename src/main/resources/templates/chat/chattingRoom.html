@@ -8,6 +8,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/chatRoomStyle.css" />
   <style>
     [v-cloak] {
       display: none;
@@ -16,24 +17,25 @@
 </head>
 <body>
 <div class="container" id="app" v-cloak>
-  <div>
-    <h2>{{room.name}}</h2>
-  </div>
   <div class="input-group">
     <div class="input-group-prepend">
       <label class="input-group-text">내용</label>
     </div>
     <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage">
     <div class="input-group-append">
+      <!-- 채팅 보내기 버튼-->
       <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
     </div>
   </div>
+  <!-- 채팅 대화내용 표시 -->
   <ul class="list-group">
-    <li class="list-group-item" v-for="message in messages">
-      {{message.sender}} - {{message.message}}
+    <li class="list-group-item"
+        v-for="(message) in messages"
+        :class="{ 'my-row': isMyChat(message), 'other-row': isOtherChat(message) }">
+      <div class="sender-name">{{message.senderName}}</div>
+      <div class="message-bubble">{{message.message}}</div>
     </li>
   </ul>
-  <div></div>
 </div>
 <!-- JavaScript -->
 <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
@@ -41,6 +43,9 @@
 <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
 <script>
+  const loginMemberId = '[[${loginMemberId}]]';     // 로그인한 사용자의 id
+  const senderName =  '[[${loginMemberName}]]';     // 발신자(로그인한 사용자) 이름
+
   let sock = new SockJS("/ws/chat");  // 웹소켓 연결 요청
   let ws = Stomp.over(sock);
   let reconnect = 0;
@@ -48,15 +53,17 @@
   let vm = new Vue({
     el: '#app',
     data: {
-      roomId: '',
-      room: {},
-      sender: '',
-      message: '',
-      messages: []
+      roomId: '',       // 채팅방 고유 id
+      room: {},         // roomId로 채팅방 조회해서 가져온 채팅방 정보
+      senderName: '',   // 메시지 발신자 이름
+      senderId: '',     // 메시지 발신자 id
+      message: '',      // 메시지 내용
+      messages: []      // 메시지 객체 저장 배열
     },
     created() {
       this.roomId = localStorage.getItem('wschat.roomId');
-      this.sender = localStorage.getItem('wschat.sender');
+      this.senderId = loginMemberId;
+      this.senderName = senderName;
       this.findRoom();
     },
     methods: {
@@ -66,12 +73,29 @@
       },
       // 메시지 전송
       sendMessage: function() {
-        ws.send("/pub/chat/message", {}, JSON.stringify({messageId: 0, roomId:this.roomId, sender:this.sender, message:this.message, type:'TALK', checked: 'false'}));
+        ws.send("/pub/chat/message", {}, JSON.stringify({
+          messageId: 0,
+          roomId: this.roomId,
+          senderName: this.senderName,
+          senderId: this.senderId,
+          message: this.message,
+          type: 'TALK',
+          checked: 'false'
+        }));
         this.message = '';
       },
       // messages 배열에 메시지 추가
       recvMessage: function(recv) {
-        this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message});
+        this.messages.unshift({"type":recv.type,"senderName":recv.type=='ENTER'?'[알림]':recv.senderName, "senderId":recv.senderId, "message":recv.message});
+      },
+      // 나와 상대방 대화 내용에 서로 다른 스타일 적용을 위한 메서드
+      isMyChat(message) {
+        console.log("loninId: " + loginMemberId + ", senderName: " + message.senderName + ", senderId: " + message.senderId);
+        return loginMemberId === message.senderId;
+      },
+      isOtherChat(message) {
+        console.log("loninId: " + loginMemberId + ", senderName: " + message.senderName + ", senderId: " + message.senderId);
+        return loginMemberId !== message.senderId;
       }
     }
   });
@@ -80,12 +104,12 @@
     // pub/sub event
     ws.connect({}, function(frame) {
       // 채팅방 구독
-      ws.subscribe("/sub/chat/room/"+vm.$data.roomId, function(message) {
+      ws.subscribe("/sub/chat/room/" + vm.$data.roomId, function(message) {
         let recv = JSON.parse(message.body);
         vm.recvMessage(recv);
       });
       // 메시지 전송
-      ws.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId:vm.$data.roomId, sender:vm.$data.sender}));
+      ws.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId:vm.$data.roomId, senderName:vm.$data.senderName, senderId:vm.$data.senderId}));
     }, function(error) {
       if(reconnect++ <= 5) {
         setTimeout(function() {

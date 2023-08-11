@@ -30,31 +30,9 @@
 </div>
 
 <script>
-    let vm = new Vue({
-        el: '#app',
-        data: {
-            chatrooms: [],
-            userId: '1',     // 임시 사용자 id
-        },
-        created() {
-            this.findByUserId();
-        },
-        methods: {
-            findByUserId: function() {
-                axios.get(`/chat/rooms/` + this.userId).then(response => {  // 임시 id정보로 참여중인 채팅방 조회해서 가져온다.
-                    this.chatrooms = response.data;
-                });
-            },
-            enterRoom: function(item) {
-                let sender = "김철수"  // 추후 접속자이름으로 변경 필요함.
-                if(sender !== "") {
-                    localStorage.setItem('wschat.sender', sender);
-                    localStorage.setItem('wschat.roomId', item.roomId);
-                    location.href="/chat/room/enter/" + item.roomId;
-                }
-            }
-        }
-    });
+    window.loginMemberId =  '[[${loginMemberId}]]';
+    window.loginMemberName =  '[[${loginMemberName}]]';
 </script>
+<script src="/js/startRoom.js"></script>
 </body>
 </html>

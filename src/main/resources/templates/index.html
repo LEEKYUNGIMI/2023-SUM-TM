@@ -11,7 +11,6 @@
           src="https://kit.fontawesome.com/c9b17dc88f.js"
           crossorigin="anonymous"
   ></script>
-</head>
 <body>
 <header class="header">
   <div class="header__inner">
@@ -22,9 +21,9 @@
 
     <nav class="navbar">
       <ul class="navbar__menu">
-        <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-info"></i> About</a></div>
-        <div class="navbar__menu-item"><a href="#"><i class="fa-regular fa-rectangle-list"></i> 게시판</a></div>
-        <div class="navbar__menu-item"><a href="#"><i class="fa-solid fa-headset"></i> 프로젝트</a></div>
+        <div class="navbar__menu-item"><a href="#"><i class="fa fa-solid fa-info"></i> About</a></div>
+        <div class="navbar__menu-item"><a href="#"><i class="fa fa-regular fa-rectangle-list"></i> 게시판</a></div>
+        <div class="navbar__menu-item"><a href="#"><i class="fa fa-solid fa-headset"></i> 프로젝트</a></div>
       </ul>
     </nav>
 
@@ -34,22 +33,17 @@
       <li><a href="/login" class="certification-btns__sign-in-btn">로그인</a></li>
     </ul>
 
-<<<<<<< HEAD
-    <p><a href="/p/1">(채팅 기능 시험용)프로필 상세 페이지</a></p>
-    <p><a href="/h/1">(채팅 기능 시험용)모집 글 상세 페이지</a></p>
-    <p><a href="/chat/allroom">(채팅 기능 시험용)전체 채팅방 목록</a></p>
-    <p><a href="/my">(채팅 기능 시험용)id가 1인 사용자가 참여중인 채팅방 목록</a></p>
-=======
     <div class="dropdown" th:if="${loginMember}">
-      <button class="dropdown-toggle-btn"><i class="fa-solid fa-user"></i></button>
+      <button class="dropdown-toggle-btn"><i class="fa fa-solid fa-user"></i></button>
       <ul class="dropdown-menu">
-          <li><a href="#"><i class="fa-regular fa-user"></i>나의 프로필</a></li>
-          <li>
-            <form th:action="@{/logout}" method="post">
-              <button type="submit">
-                <i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a></li>
-              </button>
-            </form>
+        <li><a href="#"><i class="fa fa-regular fa-user"></i>나의 프로필</a></li>
+        <li>
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">
+              <i class="fa fa-solid fa-right-from-bracket"></i> 로그아웃</a>
+            </button>
+          </form>
+        </li>
       </ul>
     </div>
 
@@ -69,9 +63,19 @@
 <div class="welcome-header" th:if="${loginMember}">
   <h1 class="welcome-header__title">환영합니다</h1>
   <p class="welcome-header__text" th:text="|TEAMPLE 모여 사이트에  환영합니다. ${loginMember.name}님|">
-   TEAMPLE 모여 사이트에  환영합니다. 사용자님
+    TEAMPLE 모여 사이트에  환영합니다. 사용자님
   </p>
 </div>
+
+<!-- 채팅 기능 시험용########################################################## -->
+<hr>
+<h2>채팅 시험용</h2>
+<p><a href="/p/111">(채팅 기능 시험용)작성자 id가 111인 프로필 상세 페이지</a></p>
+<p><a href="/h/111">(채팅 기능 시험용)작성자 id가 111인 모집 글 상세 페이지</a></p>
+<p><a href="/chat/allroom">(채팅 기능 시험용)전체 채팅방 목록</a></p>
+<p><a href="/my">(채팅 기능 시험용)id가 1인 사용자가 참여중인 채팅방 목록</a></p>
+<hr>
+<!-- ####################################################################### -->
 
 <footer class="footer">
   <div class="footer__inner">
@@ -81,6 +85,5 @@
   </div>
 </footer>
 <script src="/js/main.js"></script>
->>>>>>> b3d54be36235c8cb52235f844f1af8674cb0e8de
 </body>
 </html>

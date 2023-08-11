@@ -1,4 +1,9 @@
-package hello.springmvc.example.chat;import lombok.RequiredArgsConstructor;
+package hello.springmvc.example.chat.controller;
+
+import hello.springmvc.example.chat.domain.ChatRoomDTO;
+import hello.springmvc.example.chat.ChatService;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
@@ -42,10 +47,10 @@ public class ChatRoomController {
     // 채팅방 생성
     @PostMapping("/room")
     @ResponseBody
-    public ChatRoomDTO createRoom(@RequestParam String name, @RequestParam String subMembers) {
+    public ChatRoomDTO createRoom(@RequestParam String id, @RequestParam String name, @RequestParam String subMembers) {
         logger.info("ROOM CRATED!");
-        logger.info("name: " + name + "subMembers: " + subMembers);
-        return chatService.createRoom(name, subMembers);
+        logger.info("id: " + id + "name: " + name + "subMembers: " + subMembers);
+        return chatService.createRoom(id, name, subMembers);
     }
 
     // roomId로 채팅방 조회 후 반환 - startRoom.js - searchRoom()에서 사용
@@ -59,8 +64,12 @@ public class ChatRoomController {
 
     // 채팅방 입장 화면
     @GetMapping("/room/enter/{roomId}")
-    public String enterRoom(Model model, @PathVariable String roomId) {
+    public String enterRoom( @PathVariable String roomId, Model model, HttpServletRequest request) {
         model.addAttribute("roomId", roomId);
+
+        // 세션에서 로그인 id정보 가져와서 세팅
+        chatService.setLoginInfo(model, request);
+
         return "chat/chattingRoom";
     }
 }

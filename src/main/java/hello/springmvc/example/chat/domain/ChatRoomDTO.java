@@ -1,9 +1,8 @@
-package hello.springmvc.example.chat;
+package hello.springmvc.example.chat.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,9 +14,9 @@ public class ChatRoomDTO {
     private String submembers;
 
 
-    public static ChatRoomDTO create(String name, String submembers) {
+    public static ChatRoomDTO create(String id, String name, String submembers) {
         ChatRoomDTO room = new ChatRoomDTO();
-        room.roomId = submembers + name;    // 임시로 지정.
+        room.roomId = id;
         room.roomName = name;
         room.submembers = submembers;
         return room;

@@ -33,5 +33,22 @@ public class TestDataInit {
         member.setFields(fields);
 
         memberRepository.save(member);
+
+        /////////////////////////////////////////// 테스트용 멤버 kim 추가
+        member = new Member();
+        member.setLoginId("kim123");
+        member.setName("kim");
+        member.setPassword("123");
+        member.setEmail("kim123@naver.com");
+        member.setGender(GenderType.Man);
+
+        fields = new ArrayList<>();
+
+        fields.add("CODING");
+        fields.add("WEB");
+
+        member.setFields(fields);
+
+        memberRepository.save(member);
     }
 }

@@ -39,13 +39,9 @@
             this.findAllRoom();
         },
         methods: {
-            findAllRoom: function() {
+            findAllRoom: function() {                           // 참여중이 모든 채팅방 조회
                 axios.get('/chat/rooms').then(response => {
-                    if(response.data != null) console.log('not null');
-                    else console.log('null');
-
                     this.chatrooms = response.data;
-                    console.log(this.chatrooms);
                 });
             },
             enterRoom: function(roomId) {

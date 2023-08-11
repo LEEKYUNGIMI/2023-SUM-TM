@@ -22,7 +22,7 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/chat")    // 클라이언트가 서버로 웹소켓 연결 하고싶을 때 /ws/chat 로 요청을 보내도록 설정
-                .setAllowedOriginPatterns("*")             // CORS 설정
-                .withSockJS();                      // 소켓을 지원하지 않는 브라우저라면, sockJS를 사용하도록 설정
+                .setAllowedOriginPatterns("*")     // CORS 설정
+                .withSockJS();                     // 소켓을 지원하지 않는 브라우저라면, sockJS를 사용하도록 설정
     }
 }

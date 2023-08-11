@@ -1,5 +1,7 @@
-package hello.springmvc.example.chat;
+package hello.springmvc.example.chat.controller;
 
+import hello.springmvc.example.chat.domain.ChatMessageDTO;
+import hello.springmvc.example.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -18,7 +20,7 @@ public class ChatMessageController {
     @MessageMapping("/chat/message")
     public void enter(ChatMessageDTO message) {
         if (ChatMessageDTO.MessageType.ENTER.equals(message.getType())) {
-            message.setMessage(message.getSender()+"님이 입장하였습니다.");
+            message.setMessage(message.getSenderName()+"님이 입장하였습니다.");
         }
 
         chatService.createMessage(message);

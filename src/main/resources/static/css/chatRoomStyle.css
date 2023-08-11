@@ -1,0 +1,43 @@
+.list-group {
+    width: 100%;
+    padding: 10px;
+    list-style: none;
+}
+
+.list-group-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.sender-name {
+    font-size: 14px;
+    color: #5e5e5e;
+}
+
+.message-bubble {
+    position: relative;
+    padding: 8px 14px;
+    border-radius: 18px;
+    max-width: 60%;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.my-row .sender-name {
+    align-self: flex-end;
+}
+
+.my-row .message-bubble {
+    background-color: #91dafc;
+    color: #ffffff;
+    align-self: flex-end;
+    border-top-right-radius: 5px;
+}
+
+.other-row .message-bubble {
+    background-color: #f1f1f1;
+    color: #333333;
+    border-top-left-radius: 5px;
+}
