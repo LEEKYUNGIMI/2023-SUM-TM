@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+<script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+<div class="container" id="app" v-cloak>
+    <h1>프로필 페이지 입니다.</h1>
+    <span>프로필 id:</span>
+    <span th:text="${pageId}"></span>
+    <p>: 모집 글 작성자의 id</p>
+    <p>사용자 id: 1234(추후 로그인 정보에서 가져와야 한다.)</p>
+    <button type="button" @click="searchRoom">채팅하기</button>
+</div>
+<script type="text/javascript" th:src="@{/js/startRoom.js}"></script>
+</body>
+</html>

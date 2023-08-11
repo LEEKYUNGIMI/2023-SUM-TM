@@ -1,0 +1,33 @@
+<!DOCYTPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 목록</title>
+    <link rel="stylesheet" href="../">
+</head>
+<body>
+<h1>회원 목록</h1>
+<a href="/members/signup">회원가입</a>
+<p>ID나 성별 클릭 시 상세정보로 이동</p>
+<table th:border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>성명</th>
+            <th>성별</th>
+            <th>분야</th>
+            <th>나이</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="member : ${members}">
+            <td ><a th:href="@{|/members/${member.getId()}|}" th:text="${member.getId()}">ID</a></td>
+            <td ><a th:href="@{|/members/${member.getId()}|}" th:text="${member.getName()}">성명</a></td>
+            <td th:text="${member.getGender()}">성별</td>
+            <td th:text="${member.getField()}">분야</td>
+            <td th:text="${member.getAge()}">나이</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
